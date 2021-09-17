@@ -40,8 +40,13 @@ import type {
     CardFilter,
     DeckRandomizationService,
     Format,
+    TypeCategoryWeighting,
 } from "@yugioh-deck-tool/core";
-import { RandomizationStrategy, TYPES } from "@yugioh-deck-tool/core";
+import {
+    createDefaultTypeCategoryWeighting,
+    RandomizationStrategy,
+    TYPES,
+} from "@yugioh-deck-tool/core";
 import { applicationContainer } from "../../../inversify.config";
 import { BDropdownGroup, BDropdownItemButton, BModal } from "bootstrap-vue";
 import { DECK_REPLACE } from "../../../store/modules/deck";
@@ -76,6 +81,9 @@ export default defineComponent({
         const filter = ref<CardFilter>({
             sets: [],
         });
+        const typeCategoryWeighting = ref<TypeCategoryWeighting>(
+            createDefaultTypeCategoryWeighting()
+        );
 
         const store = useStore();
 
@@ -89,6 +97,7 @@ export default defineComponent({
                         ...filter.value,
                         format: format.value,
                     },
+                    typeCategoryWeighting: typeCategoryWeighting.value,
                 }
             );
             store.commit(DECK_REPLACE, { deck: randomizedDeck });
@@ -102,6 +111,7 @@ export default defineComponent({
             strategy,
             strategies,
             filter,
+            typeCategoryWeighting,
 
             essentialDataLoaded,
 
