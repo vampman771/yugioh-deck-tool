@@ -20,6 +20,7 @@
                 title="Randomizer Settings"
             >
                 <div class="form-group">
+                    <h6>Randomization Strategy</h6>
                     <VSelect
                         v-model="strategy"
                         :options="strategies"
@@ -28,7 +29,14 @@
                     />
                 </div>
                 <div class="form-group">
+                    <h6>Filter</h6>
                     <YgoFilter v-model="filter" :show-only="['sets']" />
+                </div>
+                <div class="form-group">
+                    <h6>Card Type Category Weighting</h6>
+                    <YgoRandomizerTypeWeighting
+                        v-model="typeCategoryWeighting"
+                    />
                 </div>
             </BModal>
         </BDropdownItemButton>
@@ -36,6 +44,7 @@
 </template>
 
 <script lang="ts">
+import { computed, defineComponent, readonly, ref } from "@vue/composition-api";
 import type {
     CardFilter,
     DeckRandomizationService,
@@ -47,13 +56,13 @@ import {
     RandomizationStrategy,
     TYPES,
 } from "@yugioh-deck-tool/core";
-import { applicationContainer } from "../../../inversify.config";
 import { BDropdownGroup, BDropdownItemButton, BModal } from "bootstrap-vue";
-import { DECK_REPLACE } from "../../../store/modules/deck";
-import { computed, defineComponent, readonly, ref } from "@vue/composition-api";
-import YgoFilter from "../../YgoFilter.vue";
 import VSelect from "vue-select";
+import { applicationContainer } from "../../../inversify.config";
+import { DECK_REPLACE } from "../../../store/modules/deck";
 import { useStore } from "../../../store/store";
+import YgoFilter from "../../YgoFilter.vue";
+import YgoRandomizerTypeWeighting from "./YgoRandomizerTypeWeighting.vue";
 
 const deckRandomizationService =
     applicationContainer.get<DeckRandomizationService>(
@@ -63,6 +72,7 @@ const deckRandomizationService =
 export default defineComponent({
     components: {
         YgoFilter,
+        YgoRandomizerTypeWeighting,
         VSelect,
         BModal,
         BDropdownItemButton,

@@ -22,10 +22,7 @@ export enum RandomizationStrategy {
     HIGHLANDER = "Highlander",
 }
 
-export type TypeCategoryWeighting = ReadonlyMap<
-    CardTypeCategory,
-    number | null
->;
+export type TypeCategoryWeighting = Record<CardTypeCategory, number | null>;
 
 export type RandomizationOptions = Partial<{
     /**
@@ -41,13 +38,14 @@ export type RandomizationOptions = Partial<{
     readonly typeCategoryWeighting: TypeCategoryWeighting;
 }>;
 
-export const createDefaultTypeCategoryWeighting = (): TypeCategoryWeighting =>
-    new Map([
-        [CardTypeCategory.MONSTER, 0.625],
-        [CardTypeCategory.SPELL, 0.275],
-        [CardTypeCategory.TRAP, 0.1],
-        [CardTypeCategory.SKILL, null],
-    ]);
+export const createDefaultTypeCategoryWeighting = (): TypeCategoryWeighting => {
+    return {
+        [CardTypeCategory.MONSTER]: 0.625,
+        [CardTypeCategory.SPELL]: 0.275,
+        [CardTypeCategory.TRAP]: 0.1,
+        [CardTypeCategory.SKILL]: null,
+    };
+};
 
 @injectable()
 export class DeckRandomizationService {
@@ -237,8 +235,8 @@ export class DeckRandomizationService {
                 deckPart === DeckPart.MAIN &&
                 deckPartCards.length >= deckPartLimit / 2
             ) {
-                const typeCategoryRatio: number | null =
-                    typeCategoryWeighting.get(card.type.category) ?? null;
+                const typeCategoryRatio =
+                    typeCategoryWeighting[card.type.category] ?? null;
                 const cardsOfTypeCategoryCount = deckPartCards.filter(
                     (deckPartCard) =>
                         deckPartCard.type.category === card.type.category
