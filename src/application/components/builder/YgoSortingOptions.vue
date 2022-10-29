@@ -32,6 +32,7 @@ import VSelect from "vue-select";
 
 export default defineComponent({
 	components: {
+		// @ts-ignore
 		VSelect,
 	},
 	model: {

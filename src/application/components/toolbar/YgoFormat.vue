@@ -22,7 +22,10 @@ import { Format } from "@/core/lib";
 import { useStore } from "../../store/store";
 
 export default defineComponent({
-	components: { VSelect },
+	components: {
+		// @ts-ignore
+		VSelect,
+	},
 	props: {},
 	emits: [],
 	setup() {

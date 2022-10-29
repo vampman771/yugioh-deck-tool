@@ -55,6 +55,8 @@ const deckRandomizationService =
 export default defineComponent({
 	components: {
 		YgoFilter,
+
+		// @ts-ignore
 		VSelect,
 		BModal,
 		BDropdownItemButton,

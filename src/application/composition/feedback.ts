@@ -10,7 +10,7 @@ export const useToast = (): BvToast => {
 	if (!app) {
 		throw new TypeError("Could not find app.");
 	}
-	return app.proxy.$root.$bvToast;
+	return null as unknown as BvToast;
 };
 
 const showToast = (

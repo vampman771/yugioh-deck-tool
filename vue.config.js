@@ -1,7 +1,6 @@
 const { defineConfig } = require("@vue/cli-service");
 
 module.exports = defineConfig({
-	transpileDependencies: true,
 	lintOnSave: false,
 
 	publicPath: "./",
@@ -29,5 +28,22 @@ module.exports = defineConfig({
 
 		// Always use ESM version as the normal version clutters `window` and causes issues when other JS code brings their own version.
 		config.resolve.alias.set("lodash$", "lodash-es");
+
+
+		// https://v3-migration.vuejs.org/migration-build.html
+		config.resolve.alias.set('vue', '@vue/compat')
+		config.module
+			.rule('vue')
+			.use('vue-loader')
+			.tap((options) => {
+				return {
+					...options,
+					compilerOptions: {
+						compatConfig: {
+							MODE: 2
+						}
+					}
+				}
+			})
 	},
 });

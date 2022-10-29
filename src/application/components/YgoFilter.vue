@@ -241,6 +241,7 @@ const ygoprodeckController = applicationContainer.get<YgoprodeckController>(
 
 export default defineComponent({
 	components: {
+		// @ts-ignore
 		VSelect,
 		YgoCollectionFilter,
 	},

@@ -1,20 +1,16 @@
 import "reflect-metadata";
-import Vue from "vue";
+import Vue, { createApp } from "vue";
 import { bindApplicationApi } from "./api";
 import App from "./App.vue";
-import { store } from "./store/store";
 import "./styles/main.scss";
 import { ToastPlugin, VBModalPlugin, VBTogglePlugin } from "bootstrap-vue";
+import store from "@/application/store/store";
 
-Vue.config.productionTip = false;
+import "vue-select/dist/vue-select.css";
 
-Vue.use(ToastPlugin);
-Vue.use(VBModalPlugin);
-Vue.use(VBTogglePlugin);
+Vue.use(ToastPlugin).use(VBModalPlugin).use(VBTogglePlugin);
 
-new Vue({
-	store,
-	render: (h) => h(App),
-})
-	.$mount("#deckToolApplication")
+createApp(App)
+	.use(store)
+	.mount("#deckToolApplication")
 	.$nextTick(() => bindApplicationApi());
