@@ -1,12 +1,9 @@
 import { createCard } from "../../helper/dataFactories";
-import { Container } from "inversify";
-import type { SortingService } from "@/core/lib";
 import {
-	baseModule,
 	Format,
 	SortingOrder,
+	SortingService,
 	SortingStrategy,
-	TYPES,
 } from "@/core/lib";
 import { MockCardDatabase } from "../../helper/MockCardDatabase";
 
@@ -14,13 +11,7 @@ describe("SortingService", () => {
 	let sortingService: SortingService;
 
 	beforeEach(() => {
-		const container = new Container();
-		container.load(baseModule);
-		container
-			.bind<MockCardDatabase>(TYPES.CardDatabase)
-			.to(MockCardDatabase);
-
-		sortingService = container.get<SortingService>(TYPES.SortingService);
+		sortingService = new SortingService(new MockCardDatabase());
 	});
 
 	describe("sort", () => {

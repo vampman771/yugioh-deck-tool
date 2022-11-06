@@ -1,9 +1,8 @@
 import type { Card, CardDatabase, CardSet, CardType } from "@/core/lib";
 import { CardTypeCategory, FindCardBy, getLogger } from "@/core/lib";
 import type { CardSetAppearance, UnlinkedCard } from "./UnlinkedCard";
-import { YgoprodeckApiService } from "@/ygoprodeck/api/YgoprodeckApiService";
+import type { YgoprodeckApiService } from "@/ygoprodeck/api/YgoprodeckApiService";
 
-@injectable()
 export class YgoprodeckCardDatabase implements CardDatabase {
 	private static readonly logger = getLogger(YgoprodeckCardDatabase);
 
