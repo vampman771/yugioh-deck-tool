@@ -1,4 +1,4 @@
-import { createBaseModule, EncodingService } from "@/core/lib";
+import { createBaseModule } from "@/core/lib";
 import { TooltipController } from "./controller/TooltipController";
 import { HostEnvironmentConfig } from "@/browser-common/lib";
 import { createYgoprodeckModule } from "@/ygoprodeck/lib";
@@ -6,7 +6,7 @@ import { createYgoprodeckModule } from "@/ygoprodeck/lib";
 export const environmentConfig = new HostEnvironmentConfig();
 
 const { cardDatabase, resourceService, ygoprodeckService } =
-	createYgoprodeckModule(new EncodingService(), environmentConfig);
+	createYgoprodeckModule(environmentConfig);
 
 const { priceService, cardService } = createBaseModule(cardDatabase);
 

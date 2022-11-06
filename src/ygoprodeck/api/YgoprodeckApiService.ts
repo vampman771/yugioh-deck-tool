@@ -8,13 +8,7 @@ import type { RawCardValues } from "./mapping/mapCardValues";
 import { mapCardValues } from "./mapping/mapCardValues";
 import type { RawArchetype } from "./mapping/mapArchetype";
 import { mapArchetype } from "./mapping/mapArchetype";
-import type {
-	Card,
-	CardSet,
-	CardValues,
-	EncodingService,
-	EnvironmentConfig,
-} from "@/core/lib";
+import type { Card, CardSet, CardValues, EnvironmentConfig } from "@/core/lib";
 import { Environment } from "@/core/lib";
 import type { ResourceService } from "./ResourceService";
 import type { UnlinkedCard } from "@/ygoprodeck/api/UnlinkedCard";
@@ -56,16 +50,13 @@ export class YgoprodeckApiService {
 	private static readonly HTTP_STATUS_NO_MATCHES = 400;
 
 	readonly #environmentConfig: EnvironmentConfig;
-	readonly #encodingService: EncodingService;
 	readonly #resourceService: ResourceService;
 
 	constructor(
 		environmentConfig: EnvironmentConfig,
-		encodingService: EncodingService,
 		resourceService: ResourceService
 	) {
 		this.#environmentConfig = environmentConfig;
-		this.#encodingService = encodingService;
 		this.#resourceService = resourceService;
 	}
 
@@ -209,11 +200,8 @@ export class YgoprodeckApiService {
 			return {};
 		}
 		// See https://tools.ietf.org/html/rfc7617 and https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#Basic_authentication_scheme
-		const encodedCredentials = this.#encodingService.encodeBase64String(
-			this.#encodingService.encodeText(
-				`${options.auth.username}:${options.auth.token}`
-			),
-			false
+		const encodedCredentials = btoa(
+			`${options.auth.username}:${options.auth.token}`
 		);
 		return {
 			// eslint-disable-next-line @typescript-eslint/naming-convention

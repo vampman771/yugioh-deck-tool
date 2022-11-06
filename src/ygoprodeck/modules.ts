@@ -1,6 +1,6 @@
 import { YgoprodeckApiService } from "./api/YgoprodeckApiService";
 import { YgoprodeckService } from "./api/YgoprodeckService";
-import type { EncodingService, EnvironmentConfig } from "@/core/lib";
+import type { EnvironmentConfig } from "@/core/lib";
 import { ResourceService } from "./api/ResourceService";
 import { YgoprodeckCardDatabase } from "@/ygoprodeck/api/YgoprodeckCardDatabase";
 
@@ -14,13 +14,11 @@ interface YgoprodeckModule {
  * Module containing ygoprodeck.com providers.
  */
 export const createYgoprodeckModule = (
-	encodingService: EncodingService, //FIXME
 	environmentConfig: EnvironmentConfig
 ): YgoprodeckModule => {
 	const resourceService = new ResourceService(environmentConfig);
 	const ygoprodeckApiService = new YgoprodeckApiService(
 		environmentConfig,
-		encodingService,
 		resourceService
 	);
 	const ygoprodeckService = new YgoprodeckService(

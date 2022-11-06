@@ -1,8 +1,4 @@
-import {
-	createBaseModule,
-	createDeckModule,
-	EncodingService,
-} from "@/core/lib";
+import { createBaseModule, createDeckModule } from "@/core/lib";
 import { DeckController } from "./controller/DeckController";
 import { DeckUrlController } from "./controller/DeckUrlController";
 import { HostEnvironmentConfig } from "@/browser-common/lib";
@@ -12,7 +8,7 @@ import { createYgoprodeckModule } from "@/ygoprodeck/lib";
 export const environmentConfig = new HostEnvironmentConfig();
 
 const { cardDatabase, ygoprodeckService, resourceService } =
-	createYgoprodeckModule(new EncodingService(), environmentConfig);
+	createYgoprodeckModule(environmentConfig);
 
 const {
 	cardService,
