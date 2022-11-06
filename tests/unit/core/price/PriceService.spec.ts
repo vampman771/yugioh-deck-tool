@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { Container } from "inversify";
 import type { PriceService, Vendor } from "@/core/lib";
 import { baseModule, DefaultCurrency, DefaultVendor, TYPES } from "@/core/lib";

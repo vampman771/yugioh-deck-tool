@@ -1,5 +1,3 @@
-import "reflect-metadata";
-
 import { createCard, createCardType } from "../../helper/dataFactories";
 import { Container } from "inversify";
 import type { Deck, DeckService } from "@/core/lib";

@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { createCard } from "../../helper/dataFactories";
 import { when } from "ts-mockito";
 import { Container } from "inversify";

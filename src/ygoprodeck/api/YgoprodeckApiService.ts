@@ -4,20 +4,19 @@ import type { RawCardSet } from "./mapping/mapCardSet";
 import { mapCardSet } from "./mapping/mapCardSet";
 import type { PaginatedResponse } from "./PaginatedResponse";
 import { createEmptyPaginatedResponse } from "./PaginatedResponse";
-import { inject, injectable } from "inversify";
 import type { RawCardValues } from "./mapping/mapCardValues";
 import { mapCardValues } from "./mapping/mapCardValues";
 import type { RawArchetype } from "./mapping/mapArchetype";
 import { mapArchetype } from "./mapping/mapArchetype";
-import type { Card, CardSet, CardValues } from "@/core/lib";
-import {
+import type {
+	Card,
+	CardSet,
+	CardValues,
 	EncodingService,
-	Environment,
 	EnvironmentConfig,
-	TYPES,
 } from "@/core/lib";
-import { ResourceService } from "./ResourceService";
-import { YGOPRODECK_TYPES } from "../types";
+import { Environment } from "@/core/lib";
+import type { ResourceService } from "./ResourceService";
 import type { UnlinkedCard } from "@/ygoprodeck/api/UnlinkedCard";
 
 interface CardInfoOptions {
@@ -49,7 +48,6 @@ const assertStatusOk = (res: Response): Response => {
 /**
  * See YGOPRODECK API (https://db.ygoprodeck.com/api-guide/).
  */
-@injectable()
 export class YgoprodeckApiService {
 	private static readonly CHUNK_SIZE = 2000;
 
@@ -62,11 +60,8 @@ export class YgoprodeckApiService {
 	readonly #resourceService: ResourceService;
 
 	constructor(
-		@inject(TYPES.EnvironmentConfig)
 		environmentConfig: EnvironmentConfig,
-		@inject(TYPES.EncodingService)
 		encodingService: EncodingService,
-		@inject(YGOPRODECK_TYPES.ResourceService)
 		resourceService: ResourceService
 	) {
 		this.#environmentConfig = environmentConfig;

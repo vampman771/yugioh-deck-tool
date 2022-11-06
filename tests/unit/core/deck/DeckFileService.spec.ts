@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { when } from "ts-mockito";
 import { createCard } from "../../helper/dataFactories";
 import { bindMock } from "../../helper/bindMock";

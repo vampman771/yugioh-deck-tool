@@ -1,8 +1,6 @@
-import { inject, injectable } from "inversify";
 import type { Card, CardDatabase, CardSet, CardType } from "@/core/lib";
 import { CardTypeCategory, FindCardBy, getLogger } from "@/core/lib";
 import type { CardSetAppearance, UnlinkedCard } from "./UnlinkedCard";
-import { YGOPRODECK_INTERNAL_TYPES } from "@/ygoprodeck/types";
 import { YgoprodeckApiService } from "@/ygoprodeck/api/YgoprodeckApiService";
 
 @injectable()
@@ -41,10 +39,7 @@ export class YgoprodeckCardDatabase implements CardDatabase {
 	readonly #linkMarkers: string[];
 	readonly #levels: number[];
 
-	constructor(
-		@inject(YGOPRODECK_INTERNAL_TYPES.YgoprodeckApiService)
-		ygoprodeckApiService: YgoprodeckApiService
-	) {
+	constructor(ygoprodeckApiService: YgoprodeckApiService) {
 		this.#ygoprodeckApiService = ygoprodeckApiService;
 
 		this.#loadingSets = null;
