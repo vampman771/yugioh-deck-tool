@@ -15,7 +15,7 @@
 						:card="card"
 						:scale-vertically="true"
 						class="builder-matches__match__card"
-						@click.native.prevent="() => addCard(card)"
+						@click.prevent="() => addCard(card)"
 					></YgoCard>
 				</template>
 				<template v-else>

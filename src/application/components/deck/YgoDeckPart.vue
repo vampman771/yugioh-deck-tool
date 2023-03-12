@@ -33,7 +33,7 @@
 				v-for="(card, cardIndex) in cards"
 				:key="`${cardIndex}_${card.passcode}`"
 				:card="card"
-				@contextmenu.native.prevent="() => removeCard(card, cardIndex)"
+				@contextmenu.prevent="() => removeCard(card, cardIndex)"
 			>
 			</YgoCard>
 		</Draggable>
