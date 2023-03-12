@@ -1,7 +1,7 @@
-import Vue from "vue";
+import { createApp } from "vue";
 import type { ApplicationApi } from "./api";
 import App from "./App.vue";
-import { createPinia, PiniaVuePlugin } from "pinia";
+import { createPinia } from "pinia";
 import "./styles/main.scss";
 import { ToastPlugin, VBModalPlugin, VBTogglePlugin } from "bootstrap-vue";
 import { useBridge } from "@/application/bridge";
@@ -11,20 +11,14 @@ declare global {
 		yugiohDeckToolApplication?: ApplicationApi;
 	}
 }
-Vue.config.productionTip = false;
 
-Vue.use(PiniaVuePlugin);
-const pinia = createPinia();
+const app = createApp(App);
 
-Vue.use(ToastPlugin);
-Vue.use(VBModalPlugin);
-Vue.use(VBTogglePlugin);
+app.use(createPinia());
+app.use(ToastPlugin);
+app.use(VBModalPlugin);
+app.use(VBTogglePlugin);
 
-new Vue({
-	render: (h) => h(App),
-	pinia,
-})
-	.$mount("#deckToolApplication")
-	.$nextTick(() => {
-		window.yugiohDeckToolApplication = useBridge();
-	});
+app.mount("#deckToolApplication").$nextTick(() => {
+	window.yugiohDeckToolApplication = useBridge();
+});
