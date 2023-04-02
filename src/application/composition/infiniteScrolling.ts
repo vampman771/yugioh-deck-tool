@@ -41,12 +41,12 @@ export const useInfiniteScrolling = <T>(
 		}
 	}, SCROLL_THROTTLE_TIMEOUT);
 
-	// TODO: check post-mgration
 	watch(
 		() => fullArr.value,
 		() => {
 			limitRef.value = initialLimit;
-		}
+		},
+		{ deep: true }
 	);
 
 	return { scrollHandler, limitedArr };
