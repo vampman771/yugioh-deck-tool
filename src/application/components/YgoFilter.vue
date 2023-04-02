@@ -227,12 +227,8 @@ export default defineComponent({
 		VSelect,
 		YgoCollectionFilter,
 	},
-	model: {
-		prop: "filter",
-		event: "change",
-	},
 	props: {
-		filter: {
+		modelValue: {
 			required: true,
 			type: Object as PropType<CardFilter>,
 		},
@@ -242,7 +238,10 @@ export default defineComponent({
 			default: null,
 		},
 	},
-	emits: ["change"],
+	compatConfig: {
+		COMPONENT_V_MODEL: false,
+	},
+	emits: ["update:modelValue"],
 	setup: function (props, context) {
 		const { format } = storeToRefs(useFormatStore());
 
@@ -251,7 +250,7 @@ export default defineComponent({
 		const banStates = DEFAULT_BAN_STATE_ARR;
 		const cardTypeCategories = Object.values(CardTypeCategory);
 
-		const internalFilter = reactive<CardFilter>(clone(props.filter));
+		const internalFilter = reactive<CardFilter>(clone(props.modelValue));
 
 		const sets = computed<CardSet[]>(() => cardDatabase.getSets());
 		const archetypes = computed<string[]>(() =>
@@ -309,7 +308,7 @@ export default defineComponent({
 			props.showOnly == null || props.showOnly.includes(fieldName);
 
 		const onFilterChanged = (): void =>
-			context.emit("change", clone(internalFilter));
+			context.emit("update:modelValue", clone(internalFilter));
 
 		const onCollectionFilterChange = (): void => {
 			// TODO use composition API instead of manual event handling + assignment

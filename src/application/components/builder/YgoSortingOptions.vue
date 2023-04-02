@@ -34,27 +34,26 @@ export default defineComponent({
 	components: {
 		VSelect,
 	},
-	model: {
-		prop: "sortingOptions",
-		event: "change",
-	},
 	props: {
-		sortingOptions: {
+		modelValue: {
 			required: true,
 			type: Object as PropType<SortingOptions>,
 		},
 	},
-	emits: ["change"],
+	emits: ["update:modelValue"],
+	compatConfig: {
+		COMPONENT_V_MODEL: false,
+	},
 	setup(props, context) {
 		const internalSortingOptions = reactive<SortingOptions>(
-			clone(props.sortingOptions)
+			clone(props.modelValue)
 		);
 
 		const sortingStrategies = Object.values(SortingStrategy);
 		const sortingOrders = Object.values(SortingOrder);
 
 		const onOptionsChanged = (): void =>
-			context.emit("change", clone(internalSortingOptions));
+			context.emit("update:modelValue", clone(internalSortingOptions));
 
 		return {
 			sortingStrategies,
